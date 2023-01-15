@@ -2,7 +2,7 @@
   "overrides": [
     {
       "extends": [
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "plugin:@typescript-eslint/recommended-requiring-type-checking", "eslint-config-prettier"
       ],
       "files": ["*.ts", "*.tsx"],
       "parserOptions": {
@@ -14,9 +14,26 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint"],
-  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
+  "plugins": [
+    "@typescript-eslint",
+    "unused-imports",
+    "tailwindcss",
+    "simple-import-sort",
+    "eslint-plugin-prettier"
+  ],
+  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "eslint-config-prettier"],
   "rules": {
-    "@typescript-eslint/consistent-type-imports": "warn"
+    "@typescript-eslint/consistent-type-imports": "warn",
+     "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "endOfLine": "auto",
+        "trailingComma": "none",
+        "tabWidth": 2,
+        "bracketSpacing": true,
+        "semi": false
+      }
+    ]
   }
 }
