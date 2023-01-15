@@ -1,4 +1,4 @@
-import { api } from '../utils/api'
+import { api } from '@/utils/api'
 import { signIn, signOut, useSession } from 'next-auth/react'
 
 const AuthShowcase: React.FC = () => {
