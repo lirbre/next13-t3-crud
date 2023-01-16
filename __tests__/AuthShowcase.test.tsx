@@ -1,27 +1,64 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, cleanup } from '@testing-library/react'
 import AuthShowcase from '@/components/AuthShowcase'
 import { MOCK_USER, useSessionMock } from '__mocks__/useSession.mock'
-import { apiMock } from '__mocks__/api.mock'
+import { signIn, signOut } from 'next-auth/react'
 
 jest.mock('next-auth/react')
+jest.mock('@/utils/api', () => {
+  return {
+    api: {
+      example: {
+        getSecretMessage: {
+          useQuery: jest.fn(() => {
+            return { data: 'secret testing' }
+          })
+        }
+      }
+    }
+  }
+})
 
 describe('MyComponent', () => {
   beforeEach(() => {
     useSessionMock(MOCK_USER)
-    apiMock()
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
+    cleanup()
   })
 
   test('renders the component', () => {
     const { getByTestId } = render(<AuthShowcase />)
 
-    expect(getByTestId('my-component')).toBeInTheDocument()
+    expect(getByTestId('authshowcase')).toBeInTheDocument()
   })
 
-  test('handles button click', () => {
-    const { getByTestId } = render(<AuthShowcase />)
-    const button = getByTestId('my-button')
-    fireEvent.click(button)
-    expect(getByTestId('my-component')).toHaveTextContent('Button clicked')
+  test('login will render secret message and username', () => {
+    const { getByText } = render(<AuthShowcase />)
+
+    expect(getByText('Logged in as John Doe')).toBeInTheDocument()
+    expect(getByText('- secret testing')).toBeInTheDocument()
+  })
+
+  test('when has an user it will render a clickable sign out button', () => {
+    const { getByText } = render(<AuthShowcase />)
+
+    fireEvent.click(getByText('Sign out'))
+
+    expect(signIn).not.toBeCalled()
+    expect(signOut).toBeCalled()
+  })
+
+  test('without user it will render a clickable sign in button', () => {
+    useSessionMock(undefined)
+
+    const { getByText } = render(<AuthShowcase />)
+
+    fireEvent.click(getByText('Sign in'))
+
+    expect(signOut).not.toBeCalled()
+    expect(signIn).toBeCalled()
   })
 })

@@ -8,7 +8,7 @@ export const MOCK_USER = {
   }
 }
 
-export const useSessionMock = (data: typeof MOCK_USER) =>
+export const useSessionMock = (data?: typeof MOCK_USER) =>
   (useSession as jest.Mock).mockImplementation(() => {
     return {
       data,
