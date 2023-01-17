@@ -5,6 +5,7 @@ import { SessionProvider } from 'next-auth/react'
 import { api } from '../utils/api'
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ThemeProvider } from 'next-theme'
 
 import '../styles/globals.css'
 
@@ -14,8 +15,10 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ThemeProvider>
+        <Component {...pageProps} />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </ThemeProvider>
     </SessionProvider>
   )
 }
