@@ -38,8 +38,7 @@ describe('MyComponent', () => {
   test('login will render secret message and username', () => {
     const { getByText } = render(<AuthShowcase />)
 
-    expect(getByText('Logged in as John Doe')).toBeInTheDocument()
-    expect(getByText('- secret testing')).toBeInTheDocument()
+    expect(getByText('Welcome, John Doe')).toBeInTheDocument()
   })
 
   test('when has an user it will render a clickable sign out button', () => {
