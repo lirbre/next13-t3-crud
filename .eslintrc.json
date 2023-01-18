@@ -20,12 +20,12 @@
     "unused-imports",
     "eslint-plugin-tailwindcss",
     "simple-import-sort",
-    "eslint-plugin-prettier"
+    "prettier"
   ],
   "extends": [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
-    "eslint-config-prettier"
+    "prettier"
   ],
   "rules": {
     "@typescript-eslint/consistent-type-imports": "warn",
