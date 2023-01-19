@@ -1,28 +1,28 @@
 import { useState } from 'react'
 
 const useLocalTheme = () => {
-  const setTheme = (key: string, newValue: string) => {
+  const setTheme = (newValue: string) => {
     if (typeof window !== 'undefined') {
-      const raw = JSON.stringify(newValue)
+      const raw = newValue
 
-      localStorage.setItem(key, raw)
+      console.log(raw)
+
+      localStorage.setItem('theme', raw)
     }
   }
 
-  const getTheme = (key: string, defaultValue: string) => {
+  const getTheme = (defaultValue: string) => {
     if (typeof window !== 'undefined') {
-      const item = localStorage.getItem(key)
-      const raw = JSON.stringify({ [key]: defaultValue })
+      let item = localStorage.getItem('theme')
 
       if (!item) {
-        localStorage.setItem(key, raw)
-        document.documentElement.setAttribute('data-theme', defaultValue)
-        return defaultValue
+        localStorage.setItem('theme', defaultValue)
       }
 
-      const parsed = JSON.parse(item) as string
-      document.documentElement.setAttribute('data-theme', parsed)
-      return parsed
+      item ||= localStorage.getItem('theme') || 'night'
+      document.documentElement.setAttribute('data-theme', item)
+
+      return item
     }
     return defaultValue
   }
@@ -31,7 +31,7 @@ const useLocalTheme = () => {
   // agroup Todos e Config in the same useState
   // to prevent extra hooks being called
   const [theme, setThemeState] = useState<'night' | 'lemonade'>(() => {
-    const theme = getTheme('theme', 'night')
+    const theme = getTheme('night')
 
     return theme as 'night' | 'lemonade'
   })
@@ -41,7 +41,7 @@ const useLocalTheme = () => {
 
     document.documentElement.setAttribute('data-theme', newTheme)
 
-    setTheme('theme', newTheme)
+    setTheme(newTheme)
     setThemeState(newTheme)
   }
 
