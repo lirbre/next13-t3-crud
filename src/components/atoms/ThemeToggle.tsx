@@ -4,8 +4,13 @@ export const ThemeToggle = () => {
   const { toggle, theme } = useTheme()
 
   return (
-    <label className="swap swap-rotate">
-      <input checked={theme === 'dark'} onClick={toggle} type="checkbox" />
+    <label className="rotate-swap swap">
+      <input
+        checked={theme === 'dark'}
+        onClick={toggle}
+        type="checkbox"
+        readOnly
+      />
       <svg
         className="swap-on h-10 w-10 fill-yellow-200"
         xmlns="http://www.w3.org/2000/svg"
