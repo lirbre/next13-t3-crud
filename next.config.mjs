@@ -14,4 +14,12 @@ const config = {
     defaultLocale: 'en'
   }
 }
-export default config
+
+import nextBundler from '@next/bundle-analyzer'
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withBundleAnalyzer = nextBundler({
+  enabled: process.env.ANALYZE === 'true'
+})
+
+export default withBundleAnalyzer(config)

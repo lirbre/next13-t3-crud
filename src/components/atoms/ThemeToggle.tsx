@@ -1,13 +1,13 @@
-import useTheme from 'next-theme'
+import useLocalTheme from '@/hooks/useLocalTheme'
 
 export const ThemeToggle = () => {
-  const { toggle, theme } = useTheme()
+  const { theme, toggleTheme } = useLocalTheme()
 
   return (
     <label className="rotate-swap swap">
       <input
-        checked={theme === 'dark'}
-        onClick={toggle}
+        checked={theme === 'lemonade'}
+        onClick={toggleTheme}
         type="checkbox"
         readOnly
       />
