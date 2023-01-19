@@ -1,11 +1,10 @@
-import { api } from '@/utils/api'
 import { signIn, signOut, useSession } from 'next-auth/react'
 
 const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession()
 
   return (
-    <div
+    <aside
       data-testid="authshowcase"
       className="flex items-center justify-center gap-4"
     >
@@ -22,7 +21,7 @@ const AuthShowcase: React.FC = () => {
       >
         {sessionData ? 'Sign out' : 'Sign in'}
       </button>
-    </div>
+    </aside>
   )
 }
 

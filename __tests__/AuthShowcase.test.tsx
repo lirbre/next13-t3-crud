@@ -1,8 +1,9 @@
 import React from 'react'
 import { render, fireEvent, cleanup } from '@testing-library/react'
-import AuthShowcase from '@/components/AuthShowcase'
+
 import { MOCK_USER, useSessionMock } from '__mocks__/useSession.mock'
 import { signIn, signOut } from 'next-auth/react'
+import AuthShowcase from '@/components/molecules/AuthShowcase'
 
 jest.mock('next-auth/react')
 jest.mock('@/utils/api', () => {
