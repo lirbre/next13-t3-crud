@@ -30,14 +30,14 @@ const useLocalTheme = () => {
   // useState to make it async
   // agroup Todos e Config in the same useState
   // to prevent extra hooks being called
-  const [theme, setThemeState] = useState<'dark' | 'light'>(() => {
-    const theme = getTheme('theme', 'dark')
+  const [theme, setThemeState] = useState<'night' | 'lemonade'>(() => {
+    const theme = getTheme('theme', 'night')
 
-    return theme as 'dark' | 'light'
+    return theme as 'night' | 'lemonade'
   })
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    const newTheme = theme === 'night' ? 'lemonade' : 'night'
 
     document.documentElement.setAttribute('data-theme', newTheme)
 

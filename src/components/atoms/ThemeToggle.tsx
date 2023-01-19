@@ -6,7 +6,7 @@ export const ThemeToggle = () => {
   return (
     <label className="rotate-swap swap">
       <input
-        checked={theme === 'light'}
+        checked={theme === 'lemonade'}
         onClick={toggleTheme}
         type="checkbox"
         readOnly
