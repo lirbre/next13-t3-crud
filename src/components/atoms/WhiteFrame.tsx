@@ -12,7 +12,11 @@ interface IWhiteFrame {
 export const WhiteFrame: FC<IWhiteFrame> = ({ children }) => {
   return (
     <div className="flex h-screen grow flex-row-reverse bg-slate-200 shadow-lg">
-      <NavBar />
+      <div className="flex h-full w-full grow flex-col items-center border border-black">
+        <NavBar />
+        {children}
+      </div>
+
       <AsideBar>
         <AisdeBarIcons />
       </AsideBar>
