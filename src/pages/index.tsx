@@ -1,6 +1,15 @@
 import { type NextPage } from 'next'
-import { LoginScreen } from '@/components/pages/LoginScreen'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
-const Home: NextPage = () => <LoginScreen />
+const Home: NextPage = () => {
+  const router = useRouter()
+
+  useEffect(() => {
+    void router.push('/auth/signin')
+  })
+
+  return <div></div>
+}
 
 export default Home
