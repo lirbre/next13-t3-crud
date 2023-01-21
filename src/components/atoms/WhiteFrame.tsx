@@ -1,9 +1,7 @@
 import type { FC, ReactNode } from 'react'
-import { TbLayoutKanban } from 'react-icons/tb'
 import { AsideBar } from '../molecules/AsideBar'
 import { AisdeBarIcons } from '../molecules/AsideBarIcons'
 import { NavBar } from '../organisms/NavBar'
-import { BarIcon } from './BarIcon'
 
 interface IWhiteFrame {
   children: ReactNode
