@@ -8,7 +8,7 @@ const AuthShowcase: React.FC = () => {
       data-testid="authshowcase"
       className="flex items-center justify-center gap-4"
     >
-      <p className="text-md text-center text-white">
+      <p className="text-md text-center">
         {sessionData && (
           <span data-testid="authshowcase-user">
             Welcome, {sessionData.user?.name}
