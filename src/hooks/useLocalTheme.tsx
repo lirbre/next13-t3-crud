@@ -19,7 +19,7 @@ const useLocalTheme = () => {
         localStorage.setItem('theme', defaultValue)
       }
 
-      item ||= localStorage.getItem('theme') || 'night'
+      item ||= localStorage.getItem('theme') || 'business'
       document.documentElement.setAttribute('data-theme', item)
 
       return item
@@ -30,14 +30,14 @@ const useLocalTheme = () => {
   // useState to make it async
   // agroup Todos e Config in the same useState
   // to prevent extra hooks being called
-  const [theme, setThemeState] = useState<'night' | 'lemonade'>(() => {
-    const theme = getTheme('night')
+  const [theme, setThemeState] = useState<'business' | 'winter'>(() => {
+    const theme = getTheme('business')
 
-    return theme as 'night' | 'lemonade'
+    return theme as 'business' | 'winter'
   })
 
   const toggleTheme = () => {
-    const newTheme = theme === 'night' ? 'lemonade' : 'night'
+    const newTheme = theme === 'business' ? 'winter' : 'business'
 
     document.documentElement.setAttribute('data-theme', newTheme)
 
