@@ -1,7 +1,7 @@
-import { SigninPage } from '@/components/pages/SigninPage'
+import { SignUpOrSignInPage } from '@/components/pages/SignUpOrSignInPage'
 import useLocalTheme from '@/hooks/useLocalTheme'
 import type { Provider } from 'next-auth/providers'
-import { getProviders, signIn } from 'next-auth/react'
+import { getProviders } from 'next-auth/react'
 
 export default function SignIn({ providers }: { providers: Provider[] }) {
   useLocalTheme()
@@ -10,7 +10,7 @@ export default function SignIn({ providers }: { providers: Provider[] }) {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
-      <SigninPage />
+      <SignUpOrSignInPage signMethod="signIn" />
     </main>
   )
 }
