@@ -8,16 +8,19 @@ const AuthShowcase: React.FC = () => {
       data-testid="authshowcase"
       className="flex items-center justify-center gap-4"
     >
-      <p className="text-md text-center">
-        {sessionData && (
-          <span data-testid="authshowcase-user">
-            Welcome, {sessionData.user?.name}
-          </span>
-        )}
-      </p>
       <button
         className="btn-primary btn rounded-2xl"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
+        onClick={
+          sessionData
+            ? () =>
+                void signOut({
+                  callbackUrl: `${window.location.origin}`
+                })
+            : () =>
+                void signIn('', {
+                  callbackUrl: `${window.location.origin}/logged`
+                })
+        }
       >
         {sessionData ? 'Sign out' : 'Sign in'}
       </button>
