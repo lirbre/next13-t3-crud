@@ -39,7 +39,6 @@ describe('MyComponent', () => {
   // welcome component created, because of this creation the test below broke
   // test('login will render secret message and username', () => {
   //   const { getByText } = render(<AuthShowcase />)
-
   //   expect(getByText('Welcome, John Doe')).toBeInTheDocument()
   // })
 
