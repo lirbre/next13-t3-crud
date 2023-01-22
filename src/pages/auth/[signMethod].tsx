@@ -1,4 +1,6 @@
 import { Head } from '@/components/atoms/Head'
+import type { SignMethodType } from '@/components/pages/SignUpOrSignInPage'
+import { SignMehtods } from '@/components/pages/SignUpOrSignInPage'
 import { SignUpOrSignInPage } from '@/components/pages/SignUpOrSignInPage'
 import useLocalTheme from '@/hooks/useLocalTheme'
 import type { GetServerSideProps } from 'next'
@@ -10,10 +12,10 @@ export default function SignUp({
   signMethod
 }: {
   providers: Provider[]
-  signMethod: 'signUp' | 'signIn'
+  signMethod: SignMethodType
 }) {
   const handleTitle =
-    signMethod === 'signIn' ? 'Login - Open Kanban' : 'Register - Open Kanban'
+    signMethod === 'signin' ? 'Login - Open Kanban' : 'Register - Open Kanban'
   useLocalTheme()
   console.log(providers)
   return (
@@ -28,6 +30,16 @@ export default function SignUp({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { signMethod } = context.query
+
+  if (!SignMehtods.includes(signMethod as SignMethodType)) {
+    return {
+      redirect: {
+        destination: '/auth/signin',
+        permanent: false
+      }
+    }
+  }
+
   const providers = await getProviders()
   return {
     props: { providers, signMethod }
