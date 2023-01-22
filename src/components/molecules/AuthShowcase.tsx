@@ -14,7 +14,7 @@ const AuthShowcase: React.FC = () => {
           sessionData
             ? () =>
                 void signOut({
-                  callbackUrl: `${window.location.origin}`
+                  callbackUrl: `${window.location.origin}/auth/signIn`
                 })
             : () =>
                 void signIn('', {

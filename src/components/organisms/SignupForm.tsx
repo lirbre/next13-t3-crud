@@ -36,7 +36,7 @@ export const SignupForm = () => {
       </div>
       <p className="mx-auto mt-2 lg:mt-6">
         Don&apos;t have an account?{' '}
-        <Link className="link-accent link" href={'/auth/signin'}>
+        <Link className="link-accent link" href={'/auth/signIn'}>
           Sign in
         </Link>
       </p>
