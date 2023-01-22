@@ -29,7 +29,6 @@ export default function SignUp({
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { signMethod } = context.query
   const providers = await getProviders()
-  console.log(signMethod)
   return {
     props: { providers, signMethod }
   }

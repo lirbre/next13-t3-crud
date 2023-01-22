@@ -6,7 +6,7 @@ interface IAsideBar {
 
 export const AsideBar: FC<IAsideBar> = ({ children }) => {
   return (
-    <aside className="flex w-20 flex-col items-center bg-[#1C1D22]">
+    <aside className="flex w-20 flex-col items-center bg-aside_black">
       {children}
     </aside>
   )

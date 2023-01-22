@@ -9,6 +9,13 @@
 const config = {
   reactStrictMode: true,
   swcMinify: true,
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'cdn.discordapp.com'
+      }
+    ]
+  },
   i18n: {
     locales: ['en'],
     defaultLocale: 'en'
