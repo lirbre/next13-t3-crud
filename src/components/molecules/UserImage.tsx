@@ -15,12 +15,12 @@ export const UserImage = () => {
           alt="user image"
         />
       </figure>
-      <ul
-        tabIndex={0}
-        className="dropdown-content menu rounded-box mt-4 w-52 bg-aside_black p-2 shadow"
-      >
+      <ul className="dropdown-content menu rounded-box mt-4 w-52 bg-aside_black p-2 shadow">
         <li>
-          <span
+          <ThemeToggle />
+        </li>
+        <li>
+          <button
             onClick={() =>
               void signOut({
                 callbackUrl: `${window.location.origin}/auth/signIn`
@@ -28,10 +28,7 @@ export const UserImage = () => {
             }
           >
             Logout
-          </span>
-        </li>
-        <li>
-          <ThemeToggle />
+          </button>
         </li>
       </ul>
     </div>
