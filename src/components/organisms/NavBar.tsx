@@ -15,6 +15,3 @@ export const NavBar = () => {
     </nav>
   )
 }
-
-// {/* <ThemeToggle />
-//     <AuthShowcase /> */}
