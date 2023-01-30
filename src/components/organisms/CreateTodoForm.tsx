@@ -12,12 +12,12 @@ export const CreateTodoForm = () => {
 
   const [formData, setFormData] = useState<{
     group: string
-    name: string
+    description: string
     status: string
     title: string
   }>({
     group: '',
-    name: '',
+    description: '',
     status: '',
     title: ''
   })
@@ -25,19 +25,28 @@ export const CreateTodoForm = () => {
   const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    addTodo.mutate({
-      group: formData.group,
-      name: formData.name,
-      status: formData.status,
-      title: formData.title
-    })
-
-    setFormData({
-      group: '',
-      name: '',
-      status: '',
-      title: ''
-    })
+    addTodo.mutate(
+      {
+        group: formData.group,
+        description: formData.description,
+        status: formData.status,
+        title: formData.title
+      },
+      {
+        onSuccess: () =>
+          setFormData({
+            group: '',
+            description: '',
+            status: '',
+            title: ''
+          }),
+        onError: (err) => {
+          // TO DO -> error handling
+          console.log(err)
+          alert('to validate form correctly')
+        }
+      }
+    )
   }
 
   return (
@@ -53,18 +62,20 @@ export const CreateTodoForm = () => {
           <TextInput
             type="text"
             className="input-accent"
-            placeholder="Enter a name for your todo"
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            value={formData.name}
-          />
-          <TextInput
-            type="text"
-            className="input-accent"
             placeholder="Enter a title for your todo"
             onChange={(e) =>
               setFormData({ ...formData, title: e.target.value })
             }
             value={formData.title}
+          />
+          <TextInput
+            type="text"
+            className="input-accent"
+            placeholder="Enter a description for your todo"
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
+            value={formData.description}
           />
           <TextInput
             type="text"

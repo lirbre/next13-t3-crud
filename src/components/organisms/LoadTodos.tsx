@@ -10,7 +10,7 @@ export const LoadTodos = () => {
 
   return todos?.data ? (
     <div className="flex flex-wrap items-center justify-center gap-4">
-      {todos?.data.map(({ date, group, id, name, status, title }) => (
+      {todos?.data.map(({ date, group, id, description, status, title }) => (
         <div
           className="card mb-4 w-96 bg-slate-200/5 backdrop-blur-lg"
           key={id}
@@ -39,10 +39,17 @@ export const LoadTodos = () => {
                 </button>
               </div>
             </div>
-            <p>{name}</p>
+            <p>{description}</p>
             <div className="flex justify-between">
-              <p>{group}</p>
-              <p className="text-right">{format(date, 'LLL dd, uuuu')}</p>
+              {' '}
+              <div className="badge-accent badge-outline badge">
+                <p>{group}</p>
+              </div>
+              <div className="badge-accent badge-outline badge">
+                <p className="p-1.5 text-right text-accent">
+                  {format(date, 'LLL dd, uuuu')}
+                </p>
+              </div>
             </div>
           </div>
         </div>
