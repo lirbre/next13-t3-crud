@@ -5,9 +5,7 @@ export const Welcome = () => {
 
   return (
     <span className="text-md text-center text-white">
-      {sessionData && (
-        <p data-testid="authshowcase-user">Welcome, {sessionData.user?.name}</p>
-      )}
+      {sessionData && <p>Welcome, {sessionData.user?.name}</p>}
     </span>
   )
 }
