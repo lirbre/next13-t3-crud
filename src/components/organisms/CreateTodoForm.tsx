@@ -57,7 +57,7 @@ export const CreateTodoForm = () => {
             placeholder="Enter a description for your todo"
             ref={descriptionRef}
           />
-          <span className="text-error">{errors?.title}</span>
+          <span className="text-error">{errors?.description}</span>
           <input
             className="input-bordered input-accent input w-full rounded-md"
             type="text"
@@ -74,7 +74,7 @@ export const CreateTodoForm = () => {
           <span className="text-error">{errors?.status}</span>
           <div className="flex flex-col gap-3">
             <button type="submit" className="btn-accent btn rounded-md">
-              <p>Update</p>
+              <p>Create</p>
             </button>
           </div>
         </form>
