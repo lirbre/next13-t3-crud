@@ -1,5 +1,5 @@
 import { idSchema } from '@/utils/schemas/generic'
-import { todo, updateTodo } from '@/utils/schemas/todos'
+import { todo, todoUpdate } from '@/utils/schemas/todos'
 
 import { createTRPCRouter, protectedProcedure } from '../trpc'
 
@@ -7,8 +7,11 @@ export const todosRouter = createTRPCRouter({
   getAll: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.todo.findMany()
   }),
+  getUnique: protectedProcedure.input(idSchema).query(({ ctx, input }) => {
+    console.log(input.id)
+    return ctx.prisma.todo.findUnique({ where: { id: input.id } })
+  }),
   addTodo: protectedProcedure.input(todo).mutation(async ({ ctx, input }) => {
-    console.log('trying to mutate')
     await ctx.prisma.todo.create({
       data: {
         date: new Date(),
@@ -20,7 +23,7 @@ export const todosRouter = createTRPCRouter({
     })
   }),
   updateTodo: protectedProcedure
-    .input(updateTodo)
+    .input(todoUpdate)
     .mutation(async ({ ctx, input }) => {
       console.log('trying to edit')
       await ctx.prisma.todo.update({
