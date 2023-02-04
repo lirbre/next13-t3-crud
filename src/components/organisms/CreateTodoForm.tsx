@@ -57,7 +57,7 @@ export const CreateTodoForm = () => {
             placeholder="Enter a description for your todo"
             ref={descriptionRef}
           />
-          <span className="text-error">{errors?.title}</span>
+          <span className="text-error">{errors?.description}</span>
           <input
             className="input-bordered input-accent input w-full rounded-md"
             type="text"
