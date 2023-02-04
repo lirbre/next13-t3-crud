@@ -1,12 +1,14 @@
 import { BaseSkeleton } from '@/components/templates/BaseSkeleton'
-import { Welcome } from '../atoms/Welcome'
 import { WhiteFrame } from '../atoms/WhiteFrame'
+import { CreateTodoForm } from '../organisms/CreateTodoForm'
+import { LoadTodos } from '../organisms/LoadTodos'
 
 export const LoggedScreen = () => {
   return (
     <BaseSkeleton title="Next 13 - T3 - Home">
       <WhiteFrame>
-        <Welcome />
+        <CreateTodoForm />
+        <LoadTodos />
       </WhiteFrame>
     </BaseSkeleton>
   )
