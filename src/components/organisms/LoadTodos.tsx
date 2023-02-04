@@ -1,12 +1,16 @@
 import { api } from '@/utils/api'
 import { format } from 'date-fns'
+import { useState } from 'react'
 import { AiFillDelete, AiTwotoneEdit } from 'react-icons/ai'
+import { UpdateModal } from '../molecules/UpdateModal'
 
 export const LoadTodos = () => {
   const todos = api.todos.getAll.useQuery()
   const deleteTodo = api.todos.deleteTodo.useMutation({
     onSuccess: () => todos.refetch()
   })
+
+  const [choosenId, setChoosenId] = useState<string>('')
 
   return todos?.data ? (
     <div className="flex flex-wrap items-center justify-center gap-4">
@@ -23,10 +27,16 @@ export const LoadTodos = () => {
               </h2>
               <div className="flex gap-2">
                 <button className="group/iconbtn flex cursor-pointer gap-4">
-                  <AiTwotoneEdit
-                    size={24}
-                    className="fill-accent group-hover/iconbtn:fill-accent-focus group-focus:fill-accent-focus"
-                  />
+                  <label
+                    onClick={() => setChoosenId(id)}
+                    htmlFor="update-todo-modal"
+                    className="cursor-pointer"
+                  >
+                    <AiTwotoneEdit
+                      size={24}
+                      className="fill-accent group-hover/iconbtn:fill-accent-focus group-focus:fill-accent-focus"
+                    />
+                  </label>
                 </button>
                 <button
                   onClick={() => deleteTodo.mutate({ id })}
@@ -54,6 +64,7 @@ export const LoadTodos = () => {
           </div>
         </div>
       ))}
+      <UpdateModal id={choosenId} />
     </div>
   ) : (
     <></>
