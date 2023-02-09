@@ -64,7 +64,7 @@ export const LoadTodos = () => {
           </div>
         </div>
       ))}
-      <UpdateModal id={choosenId} />
+      {choosenId && <UpdateModal id={choosenId} />}
     </div>
   ) : (
     <></>
