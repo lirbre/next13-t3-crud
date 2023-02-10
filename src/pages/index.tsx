@@ -1,15 +1,28 @@
+import { LoggedScreen } from '@/components/pages/LoggedScreen'
+import { getServerAuthSession } from '@/server/auth'
+import type { GetServerSideProps } from 'next'
 import { type NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getServerAuthSession(ctx)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/signIn',
+        permanent: false
+      },
+      props: {}
+    }
+  }
+
+  return {
+    props: { session }
+  }
+}
 
 const Home: NextPage = () => {
-  const router = useRouter()
-
-  useEffect(() => {
-    void router.push('/auth/signIn')
-  })
-
-  return <div></div>
+  return <LoggedScreen />
 }
 
 export default Home

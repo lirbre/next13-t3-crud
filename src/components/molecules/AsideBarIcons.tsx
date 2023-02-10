@@ -11,12 +11,7 @@ export const AisdeBarIcons = () => {
   const router = useRouter()
   return (
     <>
-      <BarIcon
-        onClick={() => {
-          void router.push('/logged')
-        }}
-        title="Dashboard"
-      >
+      <BarIcon title="Dashboard">
         <TbLayoutKanban />
       </BarIcon>
       <BarIcon title="My Tasks">

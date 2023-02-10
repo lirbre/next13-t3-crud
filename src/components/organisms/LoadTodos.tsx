@@ -42,10 +42,10 @@ export const LoadTodos = () => {
             <p>{description}</p>
             <div className="flex justify-between">
               {' '}
-              <div className="badge-accent badge-outline badge">
+              <div className="badge badge-accent badge-outline">
                 <p>{group}</p>
               </div>
-              <div className="badge-accent badge-outline badge">
+              <div className="badge badge-accent badge-outline">
                 <p className="p-1.5 text-right text-accent">
                   {format(date, 'LLL dd, uuuu')}
                 </p>
