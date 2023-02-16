@@ -1,13 +1,18 @@
+import useForm from '@/hooks/useForm'
 import { api } from '@/utils/api'
+import { todoUpdate } from '@/utils/schemas/todos'
 import type { FormEvent } from 'react'
 import { useRef } from 'react'
-import useForm from '@/hooks/useForm'
-import { todo } from '@/utils/schemas/todos'
+import { Modal } from '../atoms/Modal'
 
-export const CreateTodoForm = () => {
+export const UpdateModal = ({ id }: { id: string }) => {
   const getAll = api.todos.getAll.useQuery()
-  const addTodo = api.todos.addTodo.useMutation({
-    onSuccess: () => getAll.refetch()
+  const getUnique = api.todos.getUnique.useQuery({ id })
+  const updateTodo = api.todos.updateTodo.useMutation({
+    onSuccess: () => {
+      void getAll.refetch()
+      void getUnique.refetch()
+    }
   })
 
   const formRef = useRef<HTMLFormElement>(null)
@@ -16,28 +21,25 @@ export const CreateTodoForm = () => {
   const groupRef = useRef<HTMLInputElement>(null)
   const statusRef = useRef<HTMLInputElement>(null)
 
-  const { submitForm, errors } = useForm(todo, addTodo.mutate)
+  const { submitForm, errors } = useForm(todoUpdate, updateTodo.mutate)
 
   const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const { errors } = submitForm({
+    submitForm({
+      id,
       title: titleRef.current?.value,
       description: descriptionRef.current?.value,
       group: groupRef.current?.value,
       status: statusRef.current?.value
     })
-
-    if (!errors) formRef.current?.reset()
   }
 
   return (
-    <div className="flex h-full w-full flex-col justify-center gap-6 lg:w-1/2">
-      <div className="mx-auto flex h-full w-full flex-col justify-center gap-6 p-4 lg:w-3/4">
+    <Modal onClose={() => formRef.current?.reset()}>
+      <div className="mx-auto flex h-full w-full flex-col justify-center gap-6 rounded-sm px-6 py-8 drop-shadow-sm lg:w-3/4">
         <div>
-          <p className="text-4xl font-black">
-            Provide informations about your Todo
-          </p>
+          <p className="text-4xl font-black">Update your Todo</p>
         </div>
         <form
           ref={formRef}
@@ -48,6 +50,7 @@ export const CreateTodoForm = () => {
             className="input-bordered input-accent input w-full rounded-md"
             type="text"
             placeholder="Enter a title for your todo"
+            defaultValue={getUnique.data?.title}
             ref={titleRef}
           />
           <span className="text-error">{errors?.title}</span>
@@ -55,6 +58,7 @@ export const CreateTodoForm = () => {
             className="input-bordered input-accent input w-full rounded-md"
             type="text"
             placeholder="Enter a description for your todo"
+            defaultValue={getUnique.data?.description}
             ref={descriptionRef}
           />
           <span className="text-error">{errors?.description}</span>
@@ -62,6 +66,7 @@ export const CreateTodoForm = () => {
             className="input-bordered input-accent input w-full rounded-md"
             type="text"
             placeholder="Enter a group for your todo"
+            defaultValue={getUnique.data?.group}
             ref={groupRef}
           />
           <span className="text-error">{errors?.group}</span>
@@ -69,16 +74,17 @@ export const CreateTodoForm = () => {
             className="input-bordered input-accent input w-full rounded-md"
             type="text"
             placeholder="Enter a status for your todo"
+            defaultValue={getUnique.data?.status}
             ref={statusRef}
           />
           <span className="text-error">{errors?.status}</span>
           <div className="flex flex-col gap-3">
             <button type="submit" className="btn-accent btn rounded-md">
-              <p>Create</p>
+              <p>Update</p>
             </button>
           </div>
         </form>
       </div>
-    </div>
+    </Modal>
   )
 }

@@ -1,23 +1,17 @@
-import { z } from 'zod'
+import { idSchema } from '@/utils/schemas/generic'
+import { todo, todoUpdate } from '@/utils/schemas/todos'
 
 import { createTRPCRouter, protectedProcedure } from '../trpc'
-
-export const todo = z.object({
-  group: z.string().min(1, { message: 'Group is required' }),
-  description: z
-    .string()
-    .min(1, { message: 'Name is required' })
-    .max(50, { message: 'Name should be less than 50 characters' }),
-  status: z.string().min(1, { message: 'Status is required' }),
-  title: z.string().min(1, { message: 'Title is required' })
-})
 
 export const todosRouter = createTRPCRouter({
   getAll: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.todo.findMany()
   }),
+  getUnique: protectedProcedure.input(idSchema).query(({ ctx, input }) => {
+    console.log(input.id)
+    return ctx.prisma.todo.findUnique({ where: { id: input.id } })
+  }),
   addTodo: protectedProcedure.input(todo).mutation(async ({ ctx, input }) => {
-    console.log('trying to mutate')
     await ctx.prisma.todo.create({
       data: {
         date: new Date(),
@@ -29,15 +23,7 @@ export const todosRouter = createTRPCRouter({
     })
   }),
   updateTodo: protectedProcedure
-    .input(
-      z.object({
-        id: z.string().min(1),
-        group: z.string().optional(),
-        description: z.string().min(1).max(50).optional(),
-        status: z.string().min(1).optional(),
-        title: z.string().min(1).optional()
-      })
-    )
+    .input(todoUpdate)
     .mutation(async ({ ctx, input }) => {
       console.log('trying to edit')
       await ctx.prisma.todo.update({
@@ -54,11 +40,7 @@ export const todosRouter = createTRPCRouter({
       })
     }),
   deleteTodo: protectedProcedure
-    .input(
-      z.object({
-        id: z.string().min(1)
-      })
-    )
+    .input(idSchema)
     .mutation(async ({ ctx, input }) => {
       console.log('trying to delete')
       await ctx.prisma.todo.delete({
